@@ -34,6 +34,6 @@
          */
         public function boot()
         {
-            //Customer::observe(CustomerObserver::class);
+            Customer::observe(CustomerObserver::class);
         }
     }

@@ -15,6 +15,7 @@
         {
             Schema::create('customers', function (Blueprint $table) {
                 $table->id();
+                $table->uuid('uuid');
                 $table->unsignedBigInteger('state_id');
                 $table->string('name');
                 $table->string('email')->unique();
