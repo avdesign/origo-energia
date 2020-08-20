@@ -6,7 +6,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Services\CustomerService;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CustomerPlanResource;
+use App\Http\Resources\CustomersResource;
+use App\Http\Resources\CustomerPlansResource;
 
 
 
@@ -29,7 +30,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return new CustomerPlanResource($this->customerService->getAll());
+        return CustomersResource::collection($this->customerService->getAll());
     }
 
     /**
@@ -50,11 +51,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        
         if ($this->customerService->setId($id))
-            return new CustomerPlanResource($this->customerService->setId($id));
-    
-        // Criar
+            return new CustomerPlansResource($this->customerService->setId($id));
     }
 
 

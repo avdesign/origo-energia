@@ -16,6 +16,7 @@ class CustomersResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid,
             'estado' => $this->state->name,
             'nome' => $this->name,
             'email' => $this->email,
