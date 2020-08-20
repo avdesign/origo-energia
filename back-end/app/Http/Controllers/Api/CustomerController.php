@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Illuminate\Http\Request;
+use App\Services\CustomerService;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerPlanResource;
+
+
 
 
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @var CustomerService
+     */
+    private $customerService;
+    
+    public function __construct(CustomerService $customerService)
+    {
+        $this->customerService = $customerService;
+    }
+    /**
+     * Retorna uma lista de clientes.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return new CustomerPlanResource($this->customerService->getAll());
     }
 
     /**
@@ -37,33 +40,26 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$customer->refresh();
     }
-
+    
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * Obter um cliente específico.
+     * @param $id
+     * @return mixed
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        //
+        
+        if ($this->customerService->setId($id))
+            return new CustomerPlanResource($this->customerService->setId($id));
+    
+        // Criar
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * Altera os dados do Cliente
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Customer  $customer
@@ -75,13 +71,16 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Exclui um cliente específico que não seja da Cidade de São Paulo.
      *
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
     public function destroy(Customer $customer)
     {
-        //
+        // Verificar se é da cidade de São Paulo.
+        
+        $customer->delete();
+        return response()->json([], 200);
     }
 }

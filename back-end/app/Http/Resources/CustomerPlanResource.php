@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StatesResource extends JsonResource
+class CustomerPlanResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,11 @@ class StatesResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'cliente' => new CustomersResource($this->resource),
+            'planos' => PLansResource::collection($this->resource->plans)
+        ];
     }
+    
+    
 }
