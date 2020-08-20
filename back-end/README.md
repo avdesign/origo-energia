@@ -13,8 +13,9 @@ Tecnologia: Laravel framework, HTML e Vue.
 * Baixe os arquivos, no terminal, acesse a back-end e digite os comandos:
 ````
 $ composer update
-$ php artisan chmod 777 storage
 $ cp .env.example .env
+$ php artisan key:generate
+$ php artisan chmod 777 storage
 ````
 * Configure sua conexão no arquivo .env
 ````
@@ -25,9 +26,6 @@ DB_DATABASE=db-name
 DB_USERNAME=user-name
 DB_PASSWORD=password-secret
 ````
-
-
-
 ## Demonstração
 
 Veja uma demonstração funcionando [Aqui](https://www.avdesign.com.br/demo/origo).
