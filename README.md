@@ -14,6 +14,16 @@ Tecnologia: Laravel framework, HTML e Vue.
 ````
 $ composer update
 $ php artisan chmod 777 storage
+$ cp .env.example .env
+````
+* Configure sua conexão no arquivo .env
+````
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db-name
+DB_USERNAME=user-name
+DB_PASSWORD=password-secret
 ````
 
 
