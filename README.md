@@ -9,12 +9,12 @@ Tecnologia: Laravel framework, HTML e Vue.
 - [Veja uma demonstração online](https://www.avdesign.com.br/demo/origo).
 
 
-## Instalação Backend
+## Instalação back-end
 * Baixe os arquivos, no terminal, acesse a back-end e digite os comandos:
 ````
 $ composer update
-$ php artisan chmod 777 storage
 $ cp .env.example .env
+$ php artisan key:generate
 ````
 * Configure sua conexão no arquivo .env
 ````
@@ -26,8 +26,25 @@ DB_USERNAME=user-name
 DB_PASSWORD=password-secret
 ````
 
+## Instalação front-end
+* Baixe os arquivos, no terminal, acesse a front-end e digite os comandos:
 
-
+## Configuração do projeto
+```
+npm install
+```
+### Compilar e recarregar  em desenvolvimento
+```
+npm run serve
+```
+### Compilar minimizado para produção
+```
+npm run build
+```
+### Verificar se existe erros
+```
+npm run lint
+```
 ## Demonstração
 
-Veja uma demonstração funcionando [Aqui](https://www.avdesign.com.br/demo/origo).
+Veja uma demonstração funcionando [Aqui](https://www.avdesign.com.br/demo/admin).

@@ -2,8 +2,8 @@
     
 namespace App\Repositories;
 
-
 use App\Models\Customer;
+use App\Helpers\CityHelper;
 use App\Repositories\Contracts\CustomerInterface;
 
 class CustomerRepository implements CustomerInterface
@@ -16,8 +16,48 @@ class CustomerRepository implements CustomerInterface
     }
     
     /**
+     * Create Customer
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data)
+    {
+        return $this->entity->create($data);
+    }
+    
+    /**
+     * Update Customer
+     * @param array $data
+     * @param $uuid
+     * @return mixed
+     */
+    public function update(array $data, $uuid)
+    {
+        $customer = $this->setId($uuid);
+        return $customer->update($data);
+    }
+    
+    /**
+     * Delete Customer
+     * @param $uuid
+     * @return mixed
+     */
+    public function delete($uuid)
+    {
+        $customer = $this->setId($uuid);
+        $verifyCity = CityHelper::verifyCity($customer->state);
+        if (!$verifyCity)
+            return $customer->delete();
+        
+        return response()->json([
+            'error' => true,
+            'message' => "{$customer->state->name} não pode ser excluida!"
+        ]);
+    }
+    
+    /**
      * Obter todos os clientes
-     * @return Customer[]|\Illuminate\Database\Eloquent\Collection
+     * @return Customer
      */
     public function getAll()
     {
@@ -26,10 +66,11 @@ class CustomerRepository implements CustomerInterface
     
     /**
      * Obter um cliente específico
-     * @return Customer[]|\Illuminate\Database\Eloquent\Collection
+     * @return Customer
      */
-    public function setId($id)
+    public function setId($uuid)
     {
-        return $this->entity->find($id);
+        return $this->entity->where('uuid', $uuid)->first();
     }
+    
 }

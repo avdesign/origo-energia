@@ -1,0 +1,14 @@
+/*=========================================================================================
+    File Name: _tailwindFixes.scss
+    Description: partial- Tailwind Fixes
+    ----------------------------------------------------------------------------------------
+    Item Name: AVdesign- "Vue Admin"
+      Author: Anselmo Velame
+    Demo URL: https://www.avdesign.com.br/demo/vue-admin
+==========================================================================================*/
+
+
+// button fix
+button:focus {
+    outline: none;
+}

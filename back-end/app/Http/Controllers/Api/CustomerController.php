@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use App\Services\CustomerService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomersResource;
+use App\Http\Requests\StoreUpdateCustomer;
 use App\Http\Resources\CustomerPlansResource;
-
-
-
 
 class CustomerController extends Controller
 {
@@ -23,36 +20,36 @@ class CustomerController extends Controller
     {
         $this->customerService = $customerService;
     }
+    
     /**
      * Retorna uma lista de clientes.
-     *
-     * @return \Illuminate\Http\Response
+     * @return CustomersResource
      */
     public function index()
     {
         return CustomersResource::collection($this->customerService->getAll());
     }
-
+    
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Adicionar um novo cliente.
+     * @param StoreCustomer $request
+     * @return CustomerPlansResource
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCustomer $request)
     {
-        //$customer->refresh();
+        $customer = $this->customerService->createNew($request->all());
+        return new CustomerPlansResource($this->customerService->setId($customer->uuid));
     }
     
     /**
      * Obter um cliente específico.
-     * @param $id
-     * @return mixed
+     * @param $uuid
+     * @return CustomerPlansResource
      */
-    public function show($id)
+    public function show($uuid)
     {
-        if ($this->customerService->setId($id))
-            return new CustomerPlansResource($this->customerService->setId($id));
+        if ($this->customerService->setId($uuid))
+            return new CustomerPlansResource($this->customerService->setId($uuid));
     }
 
 
@@ -63,22 +60,19 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(StoreUpdateCustomer $request, $uuid)
     {
-        //
+        if ($this->customerService->updateData($request->all(), $uuid))
+            return new CustomerPlansResource($this->customerService->setId($uuid));
     }
-
+    
     /**
      * Exclui um cliente específico que não seja da Cidade de São Paulo.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @param $uuid
+     * @return mixed
      */
-    public function destroy(Customer $customer)
+    public function destroy($uuid)
     {
-        // Verificar se é da cidade de São Paulo.
-        
-        $customer->delete();
-        return response()->json([], 200);
+        return $this->customerService->deleteRegister($uuid);
     }
 }

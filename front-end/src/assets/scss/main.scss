@@ -1,0 +1,28 @@
+/*=========================================================================================
+  File Name: main.scss
+  Description: Main scss file. Imports other scss partials from 'design' folder
+  ----------------------------------------------------------------------------------------
+  Item Name: AVdesign- "Vue Admin"
+  Author: Anselmo Velame
+  Demo URL: https://www.avdesign.com.br/demo/vue-admin
+==========================================================================================*/
+
+@import "design/variables";
+
+@import "design/layout";
+@import "design/typography";
+@import "design/misc";
+@import "design/extraComponents";
+@import "design/themes";
+@import "design/transitions";
+
+@import "design/customClasses";
+
+// Vuesax fixes and enhancments
+@import "design/fixesVuesax";
+
+// Tailwind Fixes
+@import "design/tailwindFix";
+
+// rtl
+@import "design/rtl";
