@@ -28,20 +28,18 @@ DB_PASSWORD=password-secret
 
 ## Instalação front-end
 * Baixe os arquivos, no terminal, acesse a front-end e digite os comandos:
-
-## Configuração do projeto
 ```
 npm install
 ```
-### Compilar e recarregar  em desenvolvimento
+* Compilar e recarregar  em desenvolvimento
 ```
 npm run serve
 ```
-### Compilar minimizado para produção
+* Compilar minimizado para produção
 ```
 npm run build
 ```
-### Verificar se existe erros
+* Verificar se existe erros
 ```
 npm run lint
 ```
